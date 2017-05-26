@@ -3,6 +3,12 @@ kind: Deployment
 metadata:
   name: drupal-jellyfish
 spec:
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+        maxUnavailable: 1
+        maxSurge: 1
   replicas: 1
   template:
     metadata:
@@ -10,7 +16,7 @@ spec:
         app: drupal
     spec:
       containers:
-        - image: us.gcr.io/jellyfish-agencysite/jellyfish-agencysite-drupal:v1.0
+        - image: us.gcr.io/jellyfish-agencysite/jellyfish-agencysite-drupal:v3.0
           name: drupal
           env:
             - name: DBHOSTNAME
